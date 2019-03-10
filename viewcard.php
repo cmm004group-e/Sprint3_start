@@ -1,12 +1,24 @@
 <?php
 // include QR_BarCode class
-
 include "QR_BarCode.php";
 
 //// Selecting from Database
 include_once 'config.php';
-$sql = 'SELECT * FROM user_profile WHERE username=username';
-foreach ($connect->query($sql) as $row)
+$username = $_SESSION['username']; ///Verifying the logged in user
+$sql = "SELECT * FROM user_profile  WHERE username = :username";
+$stmt1 = $connect->prepare($sql);
+$stmt1->bindValue(':username', $username);
+
+$stmt1->execute();
+
+$row = $stmt1->fetch(PDO::FETCH_ASSOC);
+
+if($row['username'] > 0 ) {
+
+
+    foreach ($connect->query($sql) as $row);
+}
+
 
     if(isset($errMsg)){
         echo '<div style="color:green;text-align:center;font-size:17px;">'.$errMsg.'</div>';
@@ -51,7 +63,7 @@ $facebook= $row['facebook'];
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="active navbar-brand" href="#">VIVA CARD</a>
+                    <a class="active navbar-brand" href="index.php">VIVA CARD</a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="dashboard.php">Home</a></li>
