@@ -2,9 +2,6 @@
 require 'config.php';
 if(empty($_SESSION['firstname']))
     header('Location: login.php');
-
-
-
     // Get data from the parameters below
     $firstname = $_SESSION['firstname'];
     $lastname = $_SESSION['lastname'];
@@ -17,8 +14,8 @@ if(empty($_SESSION['firstname']))
     $twitter = $_SESSION['twitter'];
     $instagram = $_SESSION['instagram'];
     $facebook= $_SESSION['facebook'];
-
-
+    $sql = "SELECT * FROM user_profile";
+    $result = $connect->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +28,7 @@ if(empty($_SESSION['firstname']))
     <title>Your profile</title>
     <link rel="stylesheet" href="assets/css/colours.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/card.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
 
@@ -69,8 +67,57 @@ if(empty($_SESSION['firstname']))
         $sql="SELECT * FROM user_profile";
         $result = $connect->query($sql);
         ?>
+
+<!--- Main body start --->
         <section class="main-container">
+            <h2>Connect with me</h2>
             <div style="background-color:grey; color:#FFFFFF; padding:10px;"><b><?php echo $_SESSION['firstname'] ?> <?php echo $_SESSION['lastname'] ?> </b></div>
+            <!-- Insert info into page from database --->
+
+            <div class='card'>
+
+
+
+                <img class='top-image' src='assets/Images/user.png' alt="user photo" title="user photo">
+                <p class="logo">VIVA CARD</p>
+                <p><?php echo $_SESSION['firstname']; ?> <?php echo $_SESSION['lastname']; ?></p>
+
+                <p><?php echo $_SESSION['company']; ?></p>
+
+                <p><?php echo $_SESSION['jobtitle']; ?></p>
+
+                <p><?php echo $_SESSION['telephone']; ?></p>
+
+                <p><a href="mailto:<?php echo $_SESSION['email'];?>">
+                        <img src="assets/Images/email.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
+
+                <a href="<?php echo $_SESSION['linkedin']; ?>">
+                    <img src="assets/Images/linkedin.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
+
+                <a href="<?php echo $_SESSION['twitter']; ?>">
+                        <img src="assets/Images/twitter.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
+
+                <a href="<?php echo $_SESSION['instagram']; ?>"><p></p>
+                    <img src="assets/Images/instagram.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
+
+                <a href="<?php echo $_SESSION['facebook']; ?>">
+                    <img src="assets/Images/facebook.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a></p>
+
+               <p class='right-side'><?php echo $_SESSION['job_desc']; ?></p>
+
+            </div>
+
+
+    </div>
+
+
+
+
+
+
+
+<!--- Main body end --->
+ <!---       <section class="main-container">
             <fieldset style="margin: 15px">
                 <fieldset>
                     <form class="signup-form" action="" method="get">
@@ -96,14 +143,12 @@ if(empty($_SESSION['firstname']))
                         <a href="<?php echo $_SESSION['instagram']; ?>" ><input type="url" name="instagram" value="<?php echo $_SESSION['instagram']; ?>" class="box" readonly/></a><br /><br />
                         Facebook <br>
                         <a href="<?php echo $_SESSION['facebook']; ?>"><input type="url" name="facebook" value="<?php echo $_SESSION['facebook']; ?>" class="box" readonly/></a><br /><br />
-
-
                     </form>
                 </fieldset>
     </div>
 </div>
 </section>
-</div>
+</div>   --->
 <!---Footer start--->
 <div class="container-fluid text-center">
     <footer class=“col-md-12">
@@ -111,23 +156,18 @@ if(empty($_SESSION['firstname']))
             <section class="col-md-2">
                 <a href="#"><h6>Meet the team</h6></a>
             </section>
-
             <section class="col-md-2">
                 <a href="#"><h6>Privacy</h6></a>
             </section>
-
             <section class="col-md-2">
                 <a href="#"><h6>Sitemap</h6></a>
             </section>
-
             <section class="col-md-2">
                 <a href="#"><h6>Complaints</h6></a>
             </section>
-
             <section class="col-md-2">
                 <a href="#"><h6>User Policy</h6></a>
             </section>
-
             <section class="col-md-2">
                 <address>
                     <a href="mailto:groupe_cmm004@live.rgu.ac.uk"><h6>Contact Information</h6></a>
@@ -146,7 +186,6 @@ if(empty($_SESSION['firstname']))
                             <img src="assets/Images/twitter.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
                         <a href="#">
                             <img src="assets/Images/github.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
-
                     </center> </h6>
             </address>
         </div>
