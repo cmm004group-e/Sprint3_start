@@ -1,4 +1,45 @@
 
+<?php
+// include QR_BarCode class
+include "QR_BarCode.php";
+//// Selecting from Database
+include_once 'config.php';
+$username = $_SESSION['username']; ///Verifying the logged in user
+$sql = "SELECT * FROM user_profile  WHERE username = :username";
+$stmt1 = $connect->prepare($sql);
+$stmt1->bindValue(':username', $username);
+
+$stmt1->execute();
+
+$row = $stmt1->fetch(PDO::FETCH_ASSOC);
+
+if($row['username'] > 0 ) {
+
+
+    foreach ($connect->query($sql) as $row);
+}
+
+
+    if(isset($errMsg)){
+        echo '<div style="color:green;text-align:center;font-size:17px;">'.$errMsg.'</div>';
+    }
+
+
+$tempDir = 'temp/';
+$firstname = $row['firstname'];
+$lastname = $row['lastname'];
+$email = $row['email'];
+$jobtitle = $row['jobtitle'];
+$company = $row['company'];
+$job_desc = $row['job_desc'];
+$telephone = $row['telephone'];
+$linkedin = $row['linkedin'];
+$twitter = $row['twitter'];
+$instagram = $row['instagram'];
+$facebook= $row['facebook'];
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,112 +82,107 @@
     </header>
     <!--- Header End--->
 
+    <!--- Main body start --->
+    <section class="main-container">
+        <h2 style="text-transform: uppercase"><?php echo $row['firstname']; ?>'s card</h2>
 
-    <?php
-if(isset($_POST['submit'])){
+      <div class='card'>
 
-    require("PHPMailer/src/PHPMailer.php");
-    require("PHPMailer/src/SMTP.php");
-    $mail = new PHPMailer\PHPMailer\PHPMailer();
-    $mail->IsSMTP(); // enable SMTP
+    <img  class='top-image' src='assets/Images/user.png' alt="user photo" title="user photo">
+          <p style="text-transform: uppercase"><strong ><em> <font size="4.5"; color="teal">  Name: </font></em> </strong><?php echo $row['firstname']; ?> <?php echo $row['lastname']; ?></p>
 
-    $mail->AddEmbeddedImage("img/cw-qr.png","qr");
-    $from = $_POST['from_email']; // this is the sender's Email address
-    $to = $_POST['to_email'];
-    $subject = $_POST['subject'];
-    $message = '<p>Scan me</p> <img src="cid:-qr">';
+    <p style="text-transform: uppercase"><strong ><em> <font size="4.5"; color="teal">  Company: </font></em> </strong> <?php echo $row['company']; ?></p>
 
-    //$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
-    $mail->SMTPAuth = true; // authentication enabled
-    $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
-    $mail->Host = "smtp.gmail.com";
-    $mail->Port = 465; // or 587
-    $mail->IsHTML(true);
-    $mail->Username = "hamboluwisdom@gmail.com";
-    $mail->Password = "P@55w0rd@123";
-    $mail->SetFrom($from);
-    $mail->Subject = $subject;
-    $mail->Body = $message;
-    $mail->AddAddress($to);
-
-    if(!$mail->Send()) {
-        echo "Mailer Error: " . $mail->ErrorInfo;
-    } else {
-        echo "Message has been sent";
-        header("Location: ./viewcard.php");
-    }
+    <p style="text-transform: uppercase"><strong ><em> <font size="4.5"; color="teal">  Job Tilte: </font></em> </strong> <?php echo $row['jobtitle']; ?></p>
 
 
-    //$from = $_POST['from_email']; // this is the sender's Email address
-    //$subject = $_POST['subject'];
-    //$message = " <p>Hello</p>";
-    //$headers = "MIME-Version: 1.0" . "\n";
-    //$headers .= "Content-type:text/html;charset=iso-8859-1" . "\n";
-    //$headers = "From:" . $from;
-    //mail($to,$subject,$message,$headers);
-}
-?>
 
-<HTML>
-<title>Form</title>
-<body>
-<center>
-<form action="" method="post">
-    To Email: <br>
-    <input type="text" name="to_email"><br>
-    From Email: <br>
-    <input type="text" name="from_email"><br>
-    Subject: <br>
-    <input type="text" name="subject"><br>
-    <input type="submit" name="submit" value="Submit">
-</form>
-</center>
-</body>
-</HTML>
+    <!--<a href="my_details.php"><img class='bottom-image' src='assets/Images/smartcard.png' alt="QR code" title="QR code"></a> -->
+    <div class="qr-field">
 
-
-    <!---Footer start--->
-    <div class="container-fluid text-center">
-        <footer class=“col-md-12">
-            <div class=‘row'>
-                <section class="col-md-2">
-                    <a href="#"><h6>Meet the team</h6></a>
-                </section>
-                <section class="col-md-2">
-                    <a href="#"><h6>Privacy</h6></a>
-                </section>
-                <section class="col-md-2">
-                    <a href="#"><h6>Sitemap</h6></a>
-                </section>
-                <section class="col-md-2">
-                    <a href="#"><h6>Complaints</h6></a>
-                </section>
-                <section class="col-md-2">
-                    <a href="#"><h6>User Policy</h6></a>
-                </section>
-                <section class="col-md-2">
-                    <address>
-                        <a href="mailto:groupe_cmm004@live.rgu.ac.uk"><h6>Contact Information</h6></a>
-                    </address>
-                </section>
-                <address>
-                    <h6><center>Visit us at<br>
-                            Robert Gordon University, Garthdee House,<br>
-                            Garthdee Road, Aberdeen, AB10 7QB, Scotland,<br>
-                            UK<br>
-                            <a href="mailto:groupe_cmm004@live.rgu.ac.uk">
-                                <img src="assets/Images/email.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
-                            <a href="#">
-                                <img src="assets/Images/facebook.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
-                            <a href="#">
-                                <img src="assets/Images/twitter.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
-                            <a href="#">
-                                <img src="assets/Images/github.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
-                        </center> </h6>
-                </address>
+        <center>
+            <div  style="margin-left: 70%; ">
+                <?php echo '<img src="img/cw-qr.png" style="width:150px; height:150px; "><br>'; ?>
             </div>
-        </footer>
+            <!--  <a class="btn btn-primary submitBtn" style="width:210px; margin:5px 0;" href="download.php?file=<?/*php echo $filename; */?>.png ">Download QR Code</a>-->
+
+        </center>
+        <br>
+
+
+
+<!--img src='img/cw-qr.png'"; -->
+        <a href="./share.php"> <img src="http://png-2.findicons.com/files/icons/573/must_have/48/mail.png">
+
+            <!--<img src="img/cw-qr.png">-->
+        </a>
+
+
+
+
+
+        </a>
+
+        <br>
+
+
+
     </div>
-    <!---Footer end--->
+
+        <h4></h4>
+    </div>
+
+</div>
+
+
+</div>
+
+
+<!--- Main body end --->
+
+<!---Footer start--->
+<div class="container-fluid text-center">
+    <footer class=“col-md-12">
+        <div class=‘row'>
+            <section class="col-md-2">
+                <a href="#"><h6>Meet the team</h6></a>
+            </section>
+            <section class="col-md-2">
+                <a href="#"><h6>Privacy</h6></a>
+            </section>
+            <section class="col-md-2">
+                <a href="#"><h6>Sitemap</h6></a>
+            </section>
+            <section class="col-md-2">
+                <a href="#"><h6>Complaints</h6></a>
+            </section>
+            <section class="col-md-2">
+                <a href="#"><h6>User Policy</h6></a>
+            </section>
+            <section class="col-md-2">
+                <address>
+                    <a href="mailto:groupe_cmm004@live.rgu.ac.uk"><h6>Contact Information</h6></a>
+                </address>
+            </section>
+            <address>
+                <h6><center>Visit us at<br>
+                        Robert Gordon University, Garthdee House,<br>
+                        Garthdee Road, Aberdeen, AB10 7QB, Scotland,<br>
+                        UK<br>
+                        <a href="mailto:groupe_cmm004@live.rgu.ac.uk">
+                            <img src="assets/Images/email.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
+                        <a href="#">
+                            <img src="assets/Images/facebook.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
+                        <a href="#">
+                            <img src="assets/Images/twitter.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
+                        <a href="#">
+                            <img src="assets/Images/github.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
+                    </center> </h6>
+            </address>
+        </div>
+    </footer>
+</div>
+<!---Footer end--->
 </body>
 </html>
+
