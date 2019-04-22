@@ -33,15 +33,10 @@ if(isset($error)){ echo $error; } /// figure out later (check)
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="dashboard.php">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Support</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="faq.php">FAQ</a></li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+
 
         </div>
     </nav>
@@ -55,7 +50,13 @@ if(isset($error)){ echo $error; } /// figure out later (check)
         }
         ?>
         <section class="main-container">
-            <div style="background-color:grey; color:#FFFFFF; padding:10px;"><h3>View Contacts</h3></div>
+            <div class="form-group">
+            <div style="background-color:grey; color:#FFFFFF; padding:10px;"><h3>View Contacts</h3> <form class="navbar-form navbar-right">
+                        <input type="text" class="form-control" placeholder="Search">
+                    <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+
+            </form></div>
             <div style="margin: 15px">
 <div class="container">
 	<div class="row">
@@ -74,10 +75,13 @@ if(isset($error)){ echo $error; } /// figure out later (check)
                 <th>Facebook</th>
 				<th>Manage</th>
             </tr>
+
 			<?php 
 			while($r = $result->fetch(PDO::FETCH_ASSOC)){
 			?>
+
 			<tr>
+
 				<td><?php echo $r['id']; ?></td>
 				<td><?php echo $r['firstname'] . " " . $r['lastname']; ?></td>
 				<td><?php echo $r['email']; ?></td>
@@ -89,9 +93,11 @@ if(isset($error)){ echo $error; } /// figure out later (check)
                 <td><?php echo $r['twitter']; ?></td>
                 <td><?php echo $r['instagram']; ?></td>
                 <td><?php echo $r['facebook']; ?></td>
-				<td><a href="updatecontact.php?id=<?php echo $r['id']; ?>">Edit</a> <a href="deletecontact.php?id=<?php echo $r['id']; ?>">Delete</a></td>
-			</tr>
-			<?php } ?>
+				<td> <a href="deletecontact.php?id=<?php echo $r['id']; ?>">Delete</a></td>
+
+            </tr>
+
+    <?php } ?>
 		</table>
 	</div>
 </div>
@@ -99,31 +105,14 @@ if(isset($error)){ echo $error; } /// figure out later (check)
                 <div class="container-fluid text-center">
                     <footer class=“col-md-12">
                         <div class=‘row'>
-                            <section class="col-md-2">
-                                <a href="#"><h6>Meet the team</h6></a>
+                            <section class="col-md-6">
+                                <a href="team.php"><h6>Meet the team</h6></a>
                             </section>
 
-                            <section class="col-md-2">
-                                <a href="#"><h6>Privacy</h6></a>
+                            <section class="col-md-6">
+                                <a href="privacy.php"><h6>Privacy</h6></a>
                             </section>
 
-                            <section class="col-md-2">
-                                <a href="#"><h6>Sitemap</h6></a>
-                            </section>
-
-                            <section class="col-md-2">
-                                <a href="#"><h6>Complaints</h6></a>
-                            </section>
-
-                            <section class="col-md-2">
-                                <a href="#"><h6>User Policy</h6></a>
-                            </section>
-
-                            <section class="col-md-2">
-                                <address>
-                                    <a href="mailto:groupe_cmm004@live.rgu.ac.uk"><h6>Contact Information</h6></a>
-                                </address>
-                            </section>
                             <address>
                                 <h6><center>Visit us at<br>
                                         Robert Gordon University, Garthdee House,<br>
@@ -136,7 +125,7 @@ if(isset($error)){ echo $error; } /// figure out later (check)
                                         <a href="#">
                                             <img src="assets/Images/twitter.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
                                         <a href="#">
-                                            <img src="assets/Images/github.png" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
+                                            <img src="assets/Images/linkedin.jpg" class="img-thumbnail img-responsive" width="30px" height="20px"></a>
 
                                     </center> </h6>
                             </address>
