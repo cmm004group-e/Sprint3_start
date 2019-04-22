@@ -5,7 +5,7 @@ session_start();
 define('dbhost', 'localhost');
 define('dbuser', 'root');
 define('dbpass', '');
-define('dbname', 'vivacard_sprint3A');
+define('dbname', 'vivacard_akech');
 
 
 // Connecting database
